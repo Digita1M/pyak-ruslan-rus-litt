@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Презентация — Пяк Руслана | Рэй Дуглас Брэдбери</title>
+  <meta name="description" content="Профессиональная HTML‑презентация о Рэе Дугласе Брэдбери: биография, ключевые произведения, темы, стиль, влияние, награды и факты."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0f1a; /* тёмное звёздное небо */
+      --panel:#10172a;
+      --text:#e5e7eb;
+      --muted:#94a3b8;
+      --accent:#ef4444; /* тёплый красный, как огонь из «451°» */
+      --accent-2:#22d3ee; /* неоновый голубой — атмосфера фантастики */
+      --ring: rgba(34,211,238,.35);
+      --ok:#10b981;
+      --warn:#f59e0b;
+      --shadow: 0 10px 30px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.03) inset;
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text); background: radial-gradient(1200px 500px at 80% -10%, #142036 0%, rgba(20,32,54,0) 60%),
+                          radial-gradient(900px 400px at 20% 0%, #182645 0%, rgba(24,38,69,0) 55%),
+                          var(--bg);
+      line-height:1.6; letter-spacing:.2px;
+      overflow-x: hidden;
+    }
+    a{color:var(--accent-2); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Мобильная навигация */
+    .mobile-nav-toggle {
+      display: none;
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+      background: rgba(16,23,42,.6);
+      backdrop-filter: saturate(1.2) blur(8px);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+      z-index: 100;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .mobile-nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background-color: var(--text);
+      margin: 2px 0;
+      transition: all 0.3s ease;
+    }
+    
+    /* Навигация */
+    .nav{
+      position:fixed; inset:16px 16px auto 16px; display:flex; gap:12px; align-items:center; z-index:50;
+      background:rgba(16,23,42,.6); backdrop-filter:saturate(1.2) blur(8px);
+      border:1px solid rgba(255,255,255,.06); box-shadow:var(--shadow); padding:10px 14px; border-radius:14px;
+      transition: transform 0.3s ease;
+    }
+    
+    .nav-container {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .nav .brand{font-weight:800; letter-spacing:.6px; white-space: nowrap; font-size: 14px;}
+    .nav .brand span{color:var(--accent)}
+    .nav-links {
+      display: flex;
+      gap: 12px;
+    }
+    .nav a.link{padding:8px 12px; border-radius:10px; color:var(--text); opacity:.9; font-size: 14px;}
+    .nav a.link:hover{background:rgba(255,255,255,.06); opacity:1}
+    .nav .cta{background:linear-gradient(135deg,var(--accent),#fb7185); padding:8px 14px; border-radius:12px; color:white; font-weight:700; box-shadow:0 6px 16px rgba(239,68,68,.35); font-size: 14px;}
+
+    /* Хедер */
+    .hero{
+      min-height:100vh; display:grid; place-items:center; position:relative; overflow:hidden; text-align:center; padding:100px 16px 60px;
+    }
+    .stars{position:absolute; inset:0; background-image:radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,.6), transparent 40%),
+                                   radial-gradient(1.5px 1.5px at 60% 70%, rgba(255,255,255,.5), transparent 40%),
+                                   radial-gradient(1.2px 1.2px at 80% 20%, rgba(255,255,255,.35), transparent 40%),
+                                   radial-gradient(1.8px 1.8px at 30% 80%, rgba(255,255,255,.4), transparent 40%);
+              transform:translateZ(0)
+    }
+    .comet{position:absolute; width:220px; height:220px; right:-60px; top:-40px; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.1) 50%, transparent 60%),
+                                                               conic-gradient(from 0deg at 50% 50%, rgba(34,211,238,.3), rgba(239,68,68,.25), rgba(34,211,238,.3)); filter:blur(30px); opacity:.55; animation:float 12s ease-in-out infinite}
+    .hero h1{font-family:"Playfair Display", serif; font-size:clamp(24px,6vw,42px); margin:0 0 14px; letter-spacing:.3px; line-height: 1.2;}
+    .hero h1 .type{border-right:2px solid var(--accent); white-space:nowrap; overflow:hidden; display:inline-block}
+    .hero p{max-width:860px; margin:0 auto 22px; color:var(--muted); padding: 0 10px; font-size: 14px;}
+    .chips{display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:14px}
+    .chip{padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04); font-size: 12px;}
+
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(16px)}}
+
+    /* Секции */
+    section{padding:40px 16px}
+    .wrap{max-width:1200px; margin:0 auto}
+
+    .card{background:linear-gradient(180deg,rgba(255,255,255,.04), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); box-shadow:var(--shadow)}
+
+    .grid{display:grid; gap:16px}
+    .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+    h2{font-family:"Playfair Display", serif; font-size:clamp(22px,3.8vw,36px); margin:0 0 16px; text-align: center;}
+    h3{margin:0 0 10px; font-size: 18px;}
+    .muted{color:var(--muted); font-size: 14px;}
+
+    /* Reveal-анимации */
+    .reveal{opacity:0; transform:translateY(16px); transition:opacity .8s ease, transform .8s ease}
+    .reveal.in-view{opacity:1; transform:translateY(0)}
+
+    /* Таймлайн */
+    .timeline{position:relative; padding-left:26px}
+    .timeline::before{content:""; position:absolute; left:8px; top:6px; bottom:6px; width:2px; background:linear-gradient(var(--accent), var(--accent-2))}
+    .timeline .item{position:relative; padding:12px 14px 14px; margin:10px 0; border-radius:14px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); font-size: 14px;}
+    .timeline .item::after{content:""; position:absolute; left:-6px; top:16px; width:12px; height:12px; border-radius:50%; background:var(--accent-2); box-shadow:0 0 0 4px var(--ring)}
+    .badge{display:inline-block; padding:2px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.04); font-size:12px; color:var(--muted)}
+
+    /* Карточки произведений */
+    .work{padding:16px; transition:transform .25s ease, box-shadow .25s ease}
+    .work:hover{transform:translateY(-4px); box-shadow:0 12px 30px rgba(34,211,238,.12)}
+    .work h4{margin:0 0 6px; font-size: 16px;}
+    .work .tags{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px}
+    .tag{font-size:11px; padding:2px 6px; border-radius:999px; background:rgba(34,211,238,.08); border:1px solid rgba(34,211,238,.25)}
+
+    /* Цитаты */
+    .quote{position:relative; padding:18px 20px; font-style:italic; font-size: 14px;}
+    .quote::before{content:"\201C"; position:absolute; left:10px; top:-12px; font-family:"Playfair Display", serif; font-size:64px; color:rgba(255,255,255,.08)}
+
+    /* Инфо-плашки */
+    .facts .fact{padding:14px}
+    .facts .icon{width:20px; height:20px; margin-right:8px; opacity:.8}
+    .facts .row{display:flex; align-items:center; font-size: 14px;}
+
+    /* Подвал */
+    footer{padding:30px 16px 80px; color:var(--muted); text-align:center; font-size: 14px;}
+
+    /* Кнопки */
+    .btns{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px}
+    .btn{display:inline-flex; align-items:center; gap:6px; padding:8px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.08); background:rgba(255,255,255,.06); font-size: 14px;}
+    .btn.primary{background:linear-gradient(135deg,var(--accent-2),#60a5fa); color:#00111a; font-weight:700; border:none}
+    .btn:hover{transform:translateY(-1px)}
+
+    /* Мобильные стили */
+    @media (max-width: 1000px){
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+    }
+    
+    @media (max-width: 800px){
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+      .grid-2{grid-template-columns:1fr}
+      
+      /* Мобильная навигация */
+      .mobile-nav-toggle {
+        display: flex;
+      }
+      
+      .nav {
+        flex-direction: column;
+        inset: 16px 16px auto 16px;
+        padding: 16px;
+        transform: translateY(-100%);
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+      
+      .nav-container {
+        flex-direction: column;
+        gap: 16px;
+      }
+      
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .nav a.link {
+        display: block;
+        width: 100%;
+        padding: 12px;
+      }
+      
+      .nav .cta {
+        margin-top: 10px;
+        text-align: center;
+      }
+      
+      /* Анимация гамбургер-меню */
+      .mobile-nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      
+      .mobile-nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+      }
+      
+      .mobile-nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+      }
+    }
+    
+    @media (max-width: 600px){
+      .grid-4, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero {
+        padding: 80px 16px 40px;
+        min-height: 90vh;
+      }
+      
+      section {
+        padding: 30px 16px;
+      }
+      
+      .chip {
+        font-size: 11px;
+        padding: 4px 8px;
+      }
+      
+      .hero h1 {
+        font-size: 24px;
+      }
+      
+      .hero p {
+        font-size: 13px;
+      }
+      
+      .card {
+        padding: 16px !important;
+      }
+      
+      .timeline .item {
+        padding: 10px 12px;
+      }
+      
+      .btns {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    /* Особые стили для экранов 9:16 */
+    @media (max-height: 800px) and (max-width: 450px) {
+      .hero {
+        min-height: 95vh;
+        padding: 70px 16px 30px;
+      }
+      
+      .hero h1 {
+        font-size: 22px;
+        margin-bottom: 10px;
+      }
+      
+      .hero p {
+        margin-bottom: 16px;
+        line-height: 1.4;
+      }
+      
+      .chips {
+        margin-top: 10px;
+      }
+      
+      .chip {
+        font-size: 10px;
+        padding: 3px 6px;
+      }
+      
+      .comet {
+        width: 180px;
+        height: 180px;
+        right: -50px;
+        top: -30px;
+      }
+    }
+
+    /* Печать */
+    @media print{
+      .nav, .btns, .mobile-nav-toggle {display:none !important}
+      body{background:white; color:#111}
+      .card, .work, .timeline .item{box-shadow:none; background:#fff; border:1px solid #ddd}
+    }
+  </style>
+</head>
+<body>
+  <!-- Кнопка мобильного меню -->
+  <div class="mobile-nav-toggle" id="mobileNavToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Навигация -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-container">
+      <div class="brand">Презентация <span>Пяк Руслана</span></div>
+      <div class="nav-links">
+        <a class="link" href="#bio">Биография</a>
+        <a class="link" href="#works">Произведения</a>
+        <a class="link" href="#themes">Темы</a>
+        <a class="link" href="#awards">Награды</a>
+        <a class="link" href="#facts">Факты</a>
+        <a class="cta" href="#sources">Источники</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Хедер -->
+  <header class="hero" id="top">
+    <div class="stars" aria-hidden="true"></div>
+    <div class="comet" aria-hidden="true"></div>
+    <div class="wrap">
+      <h1>
+        <span class="type" data-type="Рэй Дуглас Брэдбери — мастер гуманистической фантастики">Рэй Дуглас Брэдбери — мастер гуманистической фантастики</span>
+      </h1>
+      <p class="muted">Американский писатель (22 августа 1920 — 5 июня 2012). Автор «Марсианских хроник», «451° по Фаренгейту», «Вина из одуванчиков», «И грянул гром» и десятков рассказов, соединивший научную фантастику, мистику и поэзию повседневности.</p>
+      <div class="chips">
+        <div class="chip">📚 Писатель • эссеист • сценарист</div>
+        <div class="chip">🌌 Поэзия космоса и детства</div>
+        <div class="chip">🔥 Свобода мысли и цензура</div>
+      </div>
+      <div class="btns">
+        <a class="btn primary" href="#works">Смотреть ключевые книги</a>
+        <a class="btn" href="#bio">Краткая биография</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Краткие факты -->
+  <section id="facts" class="facts">
+    <div class="wrap grid grid-4">
+      <div class="card fact reveal">
+        <div class="row"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.27V6h-2v7h6v-2h-4z"/></svg>
+        <strong>Годы жизни</strong></div>
+        <div class="muted">1920–2012, США (Уокиган → Лос‑Анджелес)</div>
+      </div>
+      <div class="card fact reveal">
+        <div class="row"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5h18v2H3V5zm2 4h14v10H5V9z"/></svg>
+        <strong>Первые публикации</strong></div>
+        <div class="muted">С 1938 — журналы pulp; первая книга — 1947</div>
+      </div>
+      <div class="card fact reveal">
+        <div class="row"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg>
+        <strong>Жанры</strong></div>
+        <div class="muted">Научная фантастика, фэнтези, магреализм, хоррор, эссе</div>
+      </div>
+      <div class="card fact reveal">
+        <div class="row"><svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h16v2H4zM4 9h16v2H4zM4 14h10v2H4z"/></svg>
+        <strong>Ключевые темы</strong></div>
+        <div class="muted">Свобода слова, память детства, технология и человек</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Биография -->
+  <section id="bio">
+    <div class="wrap grid grid-2">
+      <div class="card reveal" style="padding:20px">
+        <h2>Краткая биография</h2>
+        <p>Рэй Дуглас Брэдбери родился <strong>22 августа 1920</strong> года в Уокигане (Иллинойс). В <strong>1934</strong> семья переехала в Лос‑Анджелес. С юности писал рассказы, выступал в уличном театре, много читал, формируя собственный поэтический взгляд на мир.</p>
+        <p>С конца 1930‑х публиковался в журналах <em>pulp</em>. Первая авторская книга — <em>Dark Carnival</em> (1947). Мировую известность принесли <strong>«Марсианские хроники» (1950)</strong> — цикл о встрече людей и Марса — и роман‑предупреждение <strong>«451° по Фаренгейту» (1953)</strong> о цензуре и духовной слепоте общества потребления.</p>
+        <p>В <strong>1957</strong> вышел лирический роман‑воспоминание <strong>«Вино из одуванчиков»</strong>, затем <em>«Something Wicked This Way Comes»</em> (1962). Брэдбери писал сценарии, эссе, работал для радио и телевидения, выступал как визионер городского планирования и популяризатор науки.</p>
+        <p>Скончался <strong>5 июня 2012</strong> в Лос‑Анджелесе, оставив богатейшее наследие — романы, повести, сотни рассказов и эссе.</p>
+      </div>
+      <div class="card reveal" style="padding:20px">
+        <h2>Таймлайн</h2>
+        <div class="timeline">
+          <div class="item"><span class="badge">1920</span> Родился в Уокигане, Иллинойс.</div>
+          <div class="item"><span class="badge">1934</span> Переезд в Лос‑Анджелес; театральное увлечение, первые рассказы.</div>
+          <div class="item"><span class="badge">1947</span> Первая книга <em>Dark Carnival</em>.</div>
+          <div class="item"><span class="badge">1950</span> <strong>«Марсианские хроники»</strong>.</div>
+          <div class="item"><span class="badge">1953</span> <strong>«451° по Фаренгейту»</strong>.</div>
+          <div class="item"><span class="badge">1957</span> <strong>«Вино из одуванчиков»</strong>.</div>
+          <div class="item"><span class="badge">1962</span> <em>Something Wicked This Way Comes</em>.</div>
+          <div class="item"><span class="badge">1994</span> Эмми за сценарий «The Halloween Tree».</div>
+          <div class="item"><span class="badge">2004</span> Национальная медаль искусств США.</div>
+          <div class="item"><span class="badge">2007</span> Специальная Пулитцеровская премия (citation).</div>
+          <div class="item"><span class="badge">2012</span> Умер в Лос‑Анджелесе.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Произведения -->
+  <section id="works">
+    <div class="wrap">
+      <h2 class="reveal">Ключевые произведения</h2>
+      <div class="grid grid-3">
+        <article class="card work reveal">
+          <h4>451° по Фаренгейту (1953)</h4>
+          <p class="muted">Антиутопия о государстве, где книги сжигают «пожарные», а массовая культура подавляет критическое мышление.</p>
+          <div class="tags"><span class="tag">антиутопия</span><span class="tag">цензура</span><span class="tag">медиа</span></div>
+        </article>
+        <article class="card work reveal">
+          <h4>Марсианские хроники (1950)</h4>
+          <p class="muted">Поэтический цикл историй о колонизации Марса, столкновении культур и хрупкости Земной цивилизации.</p>
+          <div class="tags"><span class="tag">космос</span><span class="tag">колонизация</span><span class="tag">культура</span></div>
+        </article>
+        <article class="card work reveal">
+          <h4>Вино из одуванчиков (1957)</h4>
+          <p class="muted">Лирический роман о лете детства в вымышленном городе Грин‑Таун — гимн памяти и простым радостям.</p>
+          <div class="tags"><span class="tag">детство</span><span class="tag">ностальгия</span></div>
+        </article>
+        <article class="card work reveal">
+          <h4>И грянул гром (1952)</h4>
+          <p class="muted">Классический рассказ о «эффекте бабочки»: сафари в прошлое меняет ход истории.</p>
+          <div class="tags"><span class="tag">время</span><span class="tag">этика науки</span></div>
+        </article>
+        <article class="card work reveal">
+          <h4>Улыбка (1952)</h4>
+          <p class="muted">Постапокалиптический рассказ о надежде и силе искусства перед лицом варварства.</p>
+          <div class="tags"><span class="tag">искусство</span><span class="tag">надежда</span></div>
+        </article>
+        <article class="card work reveal">
+          <h4>Что-то страшное грядёт (1962)</h4>
+          <p class="muted">Тёмная фэнтези о карнавале искушений и взрослении двух мальчиков.</p>
+          <div class="tags"><span class="tag">взросление</span><span class="tag">хоррор</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Темы и стиль -->
+  <section id="themes">
+    <div class="wrap grid grid-2">
+      <div class="card reveal" style="padding:20px">
+        <h2>Темы и мотивы</h2>
+        <ul>
+          <li><strong>Свобода мысли и цензура</strong> — опасность поверхностной «развлекательной» культуры.</li>
+          <li><strong>Человек и технология</strong> — техника как инструмент, а не цель; выбор и ответственность.</li>
+          <li><strong>Память детства</strong> — возвращение к корням, «маленькие радости» как основа счастья.</li>
+          <li><strong>Контакт культур</strong> — встреча землян и марсиан как метафора взаимопонимания и трагедии.</li>
+          <li><strong>Хрупкость цивилизации</strong> — война, экология, равнодушие как угрозы.</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="padding:20px">
+        <h2>Язык и поэтика</h2>
+        <ul>
+          <li><strong>Метафоричность</strong>, «поэтическая проза», яркие образы и запахи детства.</li>
+          <li><strong>Гуманизм</strong> — сочувствие к человеку важнее «жёсткой» научности.</li>
+          <li><strong>Жанровая гибридность</strong> — смешение НФ, фэнтези, мистики, реализма.</li>
+          <li><strong>Малые формы</strong> — мастерство новеллы и циклов рассказов.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Награды и влияние -->
+  <section id="awards">
+    <div class="wrap grid grid-2">
+      <div class="card reveal" style="padding:20px">
+        <h2>Награды</h2>
+        <ul>
+          <li><strong>Эмми</strong> (1994) — за анимационный сценарий <em>The Halloween Tree</em>.</li>
+          <li><strong>World Fantasy Award — Lifetime Achievement</strong> (1977).</li>
+          <li><strong>SFWA Grand Master</strong> (1989) — Гранд‑мастер НФ писателей США.</li>
+          <li><strong>National Medal of Arts</strong> (2004) — высшая гос. награда США в области искусства.</li>
+          <li><strong>Специальная Пулитцеровская премия (citation)</strong> (2007) — за «непреходящее влияние».</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="padding:20px">
+        <h2>Влияние и наследие</h2>
+        <p>Брэдбери сформировал образ «гуманистической фантастики», где на первом плане — не техника, а судьба человека. На его прозе выросли поколения писателей и режиссёров; его тексты экранизировали и ставили на сцене, школьники читают его по всему миру.</p>
+        <p class="muted">От «эффекта бабочки» до протеста против цензуры — культурные метафоры Брэдбери стали частью языка XX–XXI веков.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Цитаты -->
+  <section>
+    <div class="wrap grid grid-3">
+      <div class="card quote reveal">«Вы должны пьяне́ть от письма, чтобы реальность не смогла вас разрушить».</div>
+      <div class="card quote reveal">«Сжигайте цензуру, а не книги».</div>
+      <div class="card quote reveal">«Мы — иллюстрации в книге вселенной».</div>
+    </div>
+  </section>
+
+  <!-- Источники -->
+  <section id="sources">
+    <div class="wrap">
+      <h2 class="reveal">Источники и материалы</h2>
+      <div class="card reveal" style="padding:20px">
+        <ul class="muted">
+          <li>Сборники и издания произведений Р. Брэдбери; интервью и эссе автора.</li>
+          <li>Материалы о литературных премиях (SFWA, World Fantasy, Национальная медаль искусств, Пулитцеровский комитет).</li>
+          <li>Литературные энциклопедии и критические статьи о творчестве Брэдбери.</li>
+        </ul>
+        <p class="muted">Совет: добавь ссылки на школьную программу РК / свои конспекты, если презентуешь в классе.</p>
+      </div>
+      <div class="btns">
+        <a class="btn" href="#top">⬆️ Наверх</a>
+        <button class="btn" id="printBtn">🖨️ Версия для печати</button>
+        <button class="btn" id="exportBtn">💾 Экспорт в PNG</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Сделано для презентации <strong>Пяк Руслана</strong>. Дизайн: космо‑неон, плавные анимации, без библиотек. Ⓒ 2025.
+  </footer>
+
+  <script>
+    // Плавный скролл по якорям
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id=a.getAttribute('href');
+        if(id.length>1){ 
+          e.preventDefault(); 
+          document.querySelector(id).scrollIntoView({behavior:'smooth'}); 
+          
+          // Закрытие меню на мобильных устройствах после клика
+          if (window.innerWidth <= 800) {
+            toggleMobileNav();
+          }
+        }
+      });
+    });
+
+    // Typewriter‑эффект заголовка
+    const el=document.querySelector('.type');
+    const fullText=el.dataset.type||el.textContent; el.textContent='';
+    let i=0; const speed=35;
+    function type(){ if(i<=fullText.length){ el.textContent=fullText.slice(0,i)+ (i%2?"|":""); i++; requestAnimationFrame(()=>setTimeout(type, speed)); } else { el.textContent=fullText; } }
+    type();
+
+    // Parallax для звёзд/кометы
+    const stars=document.querySelector('.stars'); const comet=document.querySelector('.comet');
+    window.addEventListener('scroll',()=>{
+      const y=window.scrollY;
+      stars.style.transform=`translateY(${y*0.2}px)`;
+      comet.style.transform=`translate(0, ${y*0.1}px)`;
+    });
+
+    // Reveal при прокрутке
+    const observer=new IntersectionObserver((entries)=>{
+      for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('in-view'); observer.unobserve(e.target); } }
+    },{threshold:.15});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    // Кнопка печати
+    document.getElementById('printBtn').addEventListener('click',()=>window.print());
+
+    // Экспорт секции в PNG (простая версия через canvas‑скрин)
+    document.getElementById('exportBtn').addEventListener('click',async()=>{
+      const target=document.body;
+      const xml = new XMLSerializer().serializeToString(document.documentElement);
+      const svg = new Blob([`<svg xmlns='http://www.w3.org/2000/svg' width='1440' height='2048'><foreignObject width='100%' height='100%'>${xml}</foreignObject></svg>`],{type:'image/svg+xml;charset=utf-8'});
+      const url = URL.createObjectURL(svg);
+      const img = new Image();
+      img.onload=()=>{
+        const canvas=document.createElement('canvas');
+        canvas.width=1440; canvas.height=2048; const ctx=canvas.getContext('2d');
+        ctx.fillStyle=getComputedStyle(document.body).backgroundColor||'#0b0f1a'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.drawImage(img,0,0);
+        URL.revokeObjectURL(url);
+        const link=document.createElement('a'); link.download='bradbury_presentation.png'; link.href=canvas.toDataURL('image/png'); link.click();
+      };
+      img.src=url;
+    });
+    
+    // Функционал мобильного меню
+    const mobileNavToggle = document.getElementById('mobileNavToggle');
+    const mainNav = document.getElementById('mainNav');
+    
+    function toggleMobileNav() {
+      mobileNavToggle.classList.toggle('active');
+      mainNav.classList.toggle('active');
+      
+      // Блокировка прокрутки фона при открытом меню
+      document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    mobileNavToggle.addEventListener('click', toggleMobileNav);
+    
+    // Закрытие меню при клике вне его области
+    document.addEventListener('click', (e) => {
+      if (mainNav.classList.contains('active') && 
+          !mainNav.contains(e.target) && 
+          !mobileNavToggle.contains(e.target)) {
+        toggleMobileNav();
+      }
+    });
+  </script>
+</body>
+</html>
